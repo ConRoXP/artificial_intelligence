@@ -15,5 +15,8 @@ Course Syllabus:
 • Genetic Algorithms  
 • Applications  
 
-To pass this course I needed to submit two assignments. The first one was to solve a "robot vacuum" problem using
-Depth First Search and Breadth First Search algorithms and a heuristic algorithm of my choice. The second assignment was a literature review regarding a topic of choice in the field of AI.
+# Assignment 1  
+Solving a "robot vacuum" problem using Depth First Search and Breadth First Search algorithms and a heuristic algorithm of my choice.  
+
+# Assignment 2  
+Literature review regarding a topic of choice in the field of AI.
