@@ -4,18 +4,20 @@ from heuristic_search import best_first_search
 
 def main():
 
-    #[vacuum pos, garbage on Ν tile (1-8), vacuum base's tile, vacuum load]
+    #[θέση σκούπας, σκουπίδια Ν πλακιδίου (1-8), θέση βάσης, φορτίο σκούπας]
     initial_state = [3, 2, 3, 0, 0, 2, 0, 1, 2, 3, 0]
     #goal = [3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0]
+    #Ο καθορισμός της τελικής κατάστασης δεν είναι απαραίτητος
 
-    #initial_state= [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0]
     #initial_state= [4, 1, 0, 2, 0, 3, 3, 0, 1, 4, 0]
     #initial_state= [1, 0, 3, 0, 1, 1, 0, 2, 3, 1, 0]
+    #initial_state= [7, 1, 3, 0, 1, 1, 2, 0, 2, 7, 0]
+    #initial_state= [5, 1, 1, 2, 1, 0, 2, 0, 3, 5, 0]
 
     while True:
-        print("\nEnter desired search method or 0 to exit.")
-        print("1 - DFS\n2 - BFS\n3 - Heuristic (Best-First)")
-        search= input("Method: ")
+        print("\nΕπιλέξτε μέθοδο αναζήτησης ή 0 για έξοδο.")
+        print("1 - DFS\n2 - BFS\n3 - Ευριστική (Best-First)")
+        search= input("Επιλογή: ")
 
         if search== '1':
             method= 'DFS'
@@ -31,7 +33,7 @@ def main():
         elif search== '0':
             break
         else:
-            print("Invalid input")
+            print("Μη έγκυρη επιλογή")
     
 
 if __name__ == "__main__":
