@@ -1,15 +1,15 @@
 import copy
 from operators import find_children
 
-#Mέτωπο
+#Front
 def make_front(state):
     return [state]
 
 def expand_front(front, method):  
     if method== 'DFS':
         if front:
-            #Παρακολούθηση μετώπου
-            print("\nΜέτωπο:")
+            #Printing front
+            print("\nFront:")
             for i, state in enumerate(front):
                 print(f"  {i+1}: {state}")
             ##
@@ -19,8 +19,8 @@ def expand_front(front, method):
 
     elif method== 'BFS':
         if front:
-            #Παρακολούθηση μετώπου
-            print("\nΜέτωπο:")
+            #Printing front
+            print("\nFront:")
             for i, state in enumerate(front):
                 print(f"  {i+1}: {state}")
             ##
@@ -30,15 +30,15 @@ def expand_front(front, method):
 
     return front
 
-#Ουρά
+#Queue
 def make_queue(state):
     return [[state]]
 
 def extend_queue(queue, method):
 
     if method== 'DFS':
-        #Παρακολούθηση ουράς
-        print("\nΟυρά μονοπατιών:")
+        #Printing queue
+        print("\nPath queue:")
         for i, path in enumerate(queue):
             print(f"  {i+1}: {path}\n")
         print("=======================================")
@@ -52,8 +52,8 @@ def extend_queue(queue, method):
             queue_copy.insert(0,path)
     
     elif method== 'BFS':
-        #Παρακολούθηση ουράς
-        print("\nΟυρά μονοπατιών:")
+        #Printing queue
+        print("\nPath queue:")
         for i, path in enumerate(queue):
                 print(f"  {i+1}: {path}\n")
         print("=======================================")

@@ -2,14 +2,13 @@ import copy
 from operators import is_goal_state
 from DFS_BFS import expand_front, extend_queue
 
-#Εύρεση Λύσης
 def find_solution(front, queue, closed, method):
        
     if not front:
         print('_NO_SOLUTION_FOUND_')
-        print(f"Μέθοδος: {method}\n")
+        print(f"Search method: {method}\n")
     
-    #Αν η κατάσταση έχει ξαναεξεταστεί, παραλείπεται
+    #If state has been already examined, skip
     elif front[0] in closed:
         new_front= copy.deepcopy(front)
         new_front.pop(0)
@@ -17,20 +16,19 @@ def find_solution(front, queue, closed, method):
         new_queue.pop(0)
         find_solution(new_front, new_queue, closed, method)
     
-    #Μορφοποίηση εξόδου για να τυπώνουμε το μονοπάτι της λύσης
-    #και άλλες πληροφορίες με ευανάγνωστο τρόπο
+    #Printing solution path
     elif is_goal_state(front[0]):
         print("\n_GOAL_FOUND_")
         print(front[0])
-        print(f"\nΜονοπάτι λύσης ({len(queue[0])-1} βήματα):")
+        print(f"\nPath taken ({len(queue[0])-1} steps):")
         for step, s in enumerate(queue[0]):
-            print(f"Βήμα {step}: Θέση {s[0]}, Φορτίο {s[-1]}, Σκουπίδια {sum(s[1:9])}")
-        print(f"\nΣυνολικές καταστάσεις που εξετάστηκαν: {len(closed)}")
-        print(f"Μέθοδος: {method}\n")
+            print(f"Step {step}: Pos {s[0]}, Load {s[-1]}, Garbage {sum(s[1:9])}")
+        print(f"\nTotal states examined: {len(closed)}")
+        print(f"Search method: {method}\n")
         
     else:
         closed.append(front[0])
-        print("\nΚατάσταση που εξετάζεται:") # <-
+        print("\nState being examined:") # <-
         print(front[0])
         front_copy= copy.deepcopy(front)
         front_children=expand_front(front_copy, method)

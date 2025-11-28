@@ -1,32 +1,31 @@
 import copy
 
-#Τελεστές Μετάβασης
 def move_left(state):
-    #Η σκούπα θα μετακινηθεί μόνο αν δεν βρίσκεται στο αριστερό άκρο
-    #Αν είναι γεμάτη μπλοκάρεται η μετακίνηση της για να τηλεμεταφερθεί στην βάση
+    #The vacuum moves left only if it is not going out of bounds
+    #If it's fully loaded, movement is blocked because it goes straight to base to unload
     if state[-1]< 3 and state[0]> 1:
         state[0]= state[0]-1
-        #Έλεγχος ύπαρξης σκουπιδιών στο νέο πλακάκι
+        #Checking for garbage on new tile
         if state[state[0]]> 0:
-            #Αν τα σκουπίδια ξεπερνούν την διαθέσιμη χωρητικότητα της σκούπας
+            #If garbage greater than capacity
             if state[state[0]]> 3-state[-1]:
-                #μαζεύει όσα χωράνε για να γεμίσει
+                #vacuum gathers enough to fill up
                 state[state[0]]= state[state[0]] - (3-state[-1])
                 state[-1]= 3
             else:
-                #αλλιώς τα μαζεύει όλα
+                #else it gathers all
                 state[-1]= state[-1] + state[state[0]]
                 state[state[0]]= 0
-    #Επιστρέφεται η νέα κατάσταση
+    #Returns new state
     return state
 
 
 def move_right(state):
-    #Θα μετακινηθεί μόνο αν δεν βρίσκεται στο δεξί άκρο
-    #και άν δεν είναι γεμάτη
+    #Will move right only if it is not going out of bounds
+    #and if it's not full
     if state[-1]< 3 and state[0]< 8:
         state[0]= state[0]+1
-        #Υπόλοιπα βήματα ίδια με παραπάνω
+        #Same as above
         if state[state[0]]> 0:
             if state[state[0]]> 3- state[-1]:
                 state[state[0]]-= (3- state[-1])
@@ -37,57 +36,53 @@ def move_right(state):
     return state
 
 
-#Άδειασμα σκουπιδιών μόνο όταν γεμίζει, με τηλεμεταφορά στην βάση
+#Emptying load when full by teleporting to base
 def full(state):
-    load= state[-1]  #φορτίο σκούπας
-    tiles_garbage= sum(state[1:9])  #συνολικά σκουπίδια στα πλακάκια (1–8)
+    load= state[-1]
+    tiles_garbage= sum(state[1:9])
 
     if load== 3 or tiles_garbage== 0:
-        #Τηλεμεταφορά στη βάση
-        state[0]= state[-2]   #θέση σκούπας= θέση βάσης
-        state[-1]= 0      #άδειασμα φορτίου
+        state[0]= state[-2]   #vacuum pos= base pos
+        state[-1]= 0      #unloading
         return state
-
-    #Σε κάθε άλλη περίπτωση δεν αδειάζει
+    
     else: return None
 
 
-#Έλεγχος τελικής κατάστασης
 def is_goal_state(state):
-    #Για να επιλυθεί το πρόβλημα θα πρέπει:
+    #The goal state is defined by:
 
-    #1. Όλα τα πλακάκια 1–8 να έχουν 0 σκουπίδια
+    #1. No more garbage available on tiles
     clean= all(s== 0 for s in state[1:9])
 
-    #2. Η σκούπα να είναι άδεια και στην βάση της
+    #2. Vacuum empty and on base
     back_to_base= (state[0]== state[-2] and state[-1]== 0)
 
     return clean and back_to_base
 
 
-#Εύρεση Απογόνων
 def find_children(state):
-    #Αν η κατάσταση είναι η τελική, δεν δημιουργούνται απόγονοι
+    #If goal state, no children created
     if is_goal_state(state):
         return []
 
     children=[]
 
-    #Εφαρμογή move_left()
+    #Applying move_left()
     left_state= copy.deepcopy(state)
     left_child= move_left(left_state)
 
     if left_child!= None:
         children.append(left_child)
 
-    #Εφαρμογή move_right()
+    #Applying move_right()
     right_state= copy.deepcopy(state)
     right_child= move_right(right_state)
 
     if right_child!= None:
         children.append(right_child)
 
-    #Εφαρμογή full()
+    #Applying full()
     empty_state= copy.deepcopy(state)
     empty_child= full(empty_state)
 
