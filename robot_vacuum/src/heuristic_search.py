@@ -40,8 +40,12 @@ def best_first_search(initial_state):
 
         print("\nState being examined:")
         print(current)
-        print(f"Heuristic value h= {h_value}") 
-        states_examined+= 1 
+        print(f"Heuristic value h= {h_value}")
+        print("\nQueue (h_value, path):")
+        for i, path_ in enumerate(queue):
+                print(f"  {i+1}: {path_}\n")
+        print("=======================================")
+        states_examined+= 1
 
         for child in find_children(current):
             if child not in closed:
@@ -64,4 +68,5 @@ def best_first_search(initial_state):
 
 
     print("_NO_SOLUTION_FOUND_")
+
     print("Method: Heuristic (Best-First Search)\n")
